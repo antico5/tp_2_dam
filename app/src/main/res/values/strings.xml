@@ -3,11 +3,20 @@
     <string name="app_title">Pedi tu cena</string>
     <string name="delivery">Delivery</string>
     <string name="seleccione_horario">Seleccione el horario</string>
-    <string name="notificar_reserva">Notificar reserva 1 hora antes</string>
+    <string name="notificar_reserva">Notificar reserva</string>
     <string name="plato">Plato</string>
     <string name="postre">Postre</string>
     <string name="bebida">Bebida</string>
     <string name="agregar">Agregar</string>
-    <string name="confirmar">Confirmar pedido</string>
+    <string name="confirmar">Confirmar</string>
     <string name="reiniciar">Reiniciar</string>
+
+
+    <string-array name="horarios">
+        <item>20:00</item>
+        <item>20:30</item>
+        <item>21:00</item>
+        <item>21:30</item>
+        <item>22:00</item>
+    </string-array>
 </resources>
