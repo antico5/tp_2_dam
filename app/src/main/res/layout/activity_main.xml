@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delivery"
-        android:id="@+id/toggleButton"
+        android:id="@+id/delivery"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:textOff="@string/delivery"
@@ -35,13 +35,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/seleccione_horario"
         android:id="@+id/textView2"
-        android:layout_below="@+id/toggleButton"
+        android:layout_below="@+id/delivery"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/horario"
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/textView2"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pedido"
-        android:id="@+id/textView4"
+        android:id="@+id/pedido"
         android:minLines="6"
         android:maxLines="6"
         android:layout_below="@+id/linearLayout"
@@ -62,22 +62,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/radioGroup"
-        android:layout_below="@+id/button"
+        android:id="@+id/group"
+        android:layout_below="@+id/agregar"
         android:layout_centerHorizontal="true">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/plato"
-            android:id="@+id/radioButton"
+            android:id="@+id/plato"
             android:checked="false" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bebida"
-            android:id="@+id/radioButton2"
+            android:id="@+id/bebida"
             android:checked="false"
             android:layout_gravity="center_horizontal" />
 
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/postre"
-            android:id="@+id/radioButton3"
+            android:id="@+id/postre"
             android:checked="false" />
 
     </RadioGroup>
@@ -94,38 +94,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/agregar"
-        android:id="@+id/button"
+        android:id="@+id/agregar"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4" />
+        android:layout_below="@+id/pedido" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirmar"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:id="@+id/confirmar"
+        android:layout_alignTop="@+id/agregar"
+        android:layout_toEndOf="@+id/agregar" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reiniciar"
-        android:id="@+id/button3"
-        android:layout_alignTop="@+id/button2"
-        android:layout_toEndOf="@+id/button2" />
+        android:id="@+id/reiniciar"
+        android:layout_alignTop="@+id/confirmar"
+        android:layout_toEndOf="@+id/confirmar" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/comidas"
-        android:layout_below="@+id/radioGroup"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/group"
+        android:layout_alignParentStart="true"
+        android:choiceMode="singleChoice" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/horario"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout">
 
@@ -139,7 +140,7 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/switch1"
+            android:id="@+id/notificar"
             android:checked="false"
             android:textOff=""
             android:textOn=""

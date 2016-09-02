@@ -11,10 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 import java.text.DecimalFormat;
@@ -30,11 +33,56 @@ public class MainActivity extends AppCompatActivity {
     ElementoMenu[] listaPlatos;
     ElementoMenu[] listaPostre;
 
+    ListView listaComidas;
+    ToggleButton toggleDelivery;
+    Spinner spinnerHorario;
+    Switch switchNotificar;
+    Button botonAgregar;
+    Button botonConfirmar;
+    Button botonReiniciar;
+    RadioButton radioPlato;
+    RadioButton radioBebida;
+    RadioButton radioPostre;
+    TextView textPedido;
+    RadioGroup groupRadios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         iniciarListas();
+        setearWidgets();
+        groupRadios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton seleccionado = (RadioButton)group.findViewById(checkedId);
+                if (!seleccionado.isChecked())
+                    return;
+                switch (checkedId){
+                    case R.id.plato:
+                        break;
+                    case R.id.bebida:
+                        break;
+                    case R.id.postre:
+                        break;
+                }
+            }
+        });
+    }
+
+    private void setearWidgets() {
+        listaComidas = (ListView)findViewById(R.id.comidas);
+        toggleDelivery = (ToggleButton)findViewById(R.id.delivery);
+        spinnerHorario = (Spinner)findViewById(R.id.horario);
+        switchNotificar = (Switch)findViewById(R.id.notificar);
+        botonAgregar = (Button)findViewById(R.id.agregar);
+        botonConfirmar = (Button)findViewById(R.id.confirmar);
+        botonReiniciar = (Button)findViewById(R.id.reiniciar);
+        radioPlato = (RadioButton)findViewById(R.id.plato);
+        radioBebida = (RadioButton)findViewById(R.id.bebida);
+        radioPostre = (RadioButton)findViewById(R.id.postre);
+        textPedido = (TextView)findViewById(R.id.pedido);
+        groupRadios = (RadioGroup)findViewById(R.id.group);
     }
 
     class ElementoMenu {
