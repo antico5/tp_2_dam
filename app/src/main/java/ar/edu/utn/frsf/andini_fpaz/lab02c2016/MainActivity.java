@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     DecimalFormat f = new DecimalFormat("##.00");
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     ElementoMenu[] listaBebidas;
     ElementoMenu[] listaPlatos;
     ElementoMenu[] listaPostre;
+    ElementoMenu elementoActual;
+    Vector<ElementoMenu> pedidoActual;
 
     ArrayList<ElementoMenu> listaElementos;
     ArrayAdapter<ElementoMenu> adaptador;
@@ -49,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textPedido;
     RadioGroup groupRadios;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,26 @@ public class MainActivity extends AppCompatActivity {
         iniciarListas();
         setearWidgets();
         bindearRadios();
+        bindearAgregar();
+        reiniciar();
 
+    }
+
+    private void reiniciar(){
+        elementoActual = null;
+        pedidoActual = new Vector<ElementoMenu>();
+        actualizarDetallePedido();
+    }
+
+    private void actualizarDetallePedido(){
+        String detalle = "";
+        double total = 0;
+        for(ElementoMenu elemento : pedidoActual){
+            detalle += elemento.toString() + '\n';
+            total += elemento.getPrecio();
+        }
+        detalle += "Total: $" + String.valueOf(total);
+        textPedido.setText(detalle);
     }
 
     private void bindearRadios(){
@@ -84,6 +105,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void bindearAgregar(){
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(elementoActual == null){
+
+                }
+                else {
+                    pedidoActual.add(elementoActual);
+                    actualizarDetallePedido();
+                }
+            }
+        });
+    }
+
     private void setearWidgets() {
         listaComidas = (ListView)findViewById(R.id.comidas);
         toggleDelivery = (ToggleButton)findViewById(R.id.delivery);
@@ -102,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
         adaptador = new ArrayAdapter<ElementoMenu>(this,R.layout.support_simple_spinner_dropdown_item,listaElementos);
 
         listaComidas.setAdapter(adaptador);
+
+        listaComidas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                elementoActual= (ElementoMenu)listaComidas.getItemAtPosition(position);
+            }
+        });
     }
 
     class ElementoMenu {
