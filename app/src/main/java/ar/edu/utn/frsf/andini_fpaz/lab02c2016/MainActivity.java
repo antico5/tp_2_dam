@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         bindearRadios();
         bindearAgregar();
         bindearReiniciar();
+        bindearConfirmar();
         reiniciar();
 
     }
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!seleccionado.isChecked())
                     return;
                 listaElementos.clear();
+                elementoActual = null;
                 switch (checkedId){
                     case R.id.plato:
                         listaElementos.addAll(Arrays.asList(listaPlatos));
@@ -114,12 +116,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(confirmado){
-                    Toast toast = Toast.makeText(getApplicationContext(), "El pedido ya ha sido confirmado.", Toast.LENGTH_LONG);
-                    toast.show();
+                    toast("El pedido ya ha sido confirmado.");
                 }
                 else if(elementoActual == null){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Debe seleccionar algo del menu.", Toast.LENGTH_LONG);
-                    toast.show();
+                    toast("Debe seleccionar algo del menu.");
                 }
                 else {
                     pedidoActual.add(elementoActual);
@@ -136,6 +136,21 @@ public class MainActivity extends AppCompatActivity {
                 reiniciar();
             }
         });
+    }
+
+    private void bindearConfirmar(){
+        botonConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmado = true;
+                toast("Pedido confirmado.");
+            }
+        });
+    }
+
+    private void toast(String mensaje){
+        Toast toast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void setearWidgets() {
