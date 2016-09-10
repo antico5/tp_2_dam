@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     ElementoMenu[] listaPlatos;
     ElementoMenu[] listaPostre;
 
+    ArrayList<ElementoMenu> listaElementos;
+    ArrayAdapter<ElementoMenu> adaptador;
+
     ListView listaComidas;
     ToggleButton toggleDelivery;
     Spinner spinnerHorario;
@@ -46,26 +49,37 @@ public class MainActivity extends AppCompatActivity {
     TextView textPedido;
     RadioGroup groupRadios;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         iniciarListas();
         setearWidgets();
+        bindearRadios();
+
+    }
+
+    private void bindearRadios(){
         groupRadios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton seleccionado = (RadioButton)group.findViewById(checkedId);
                 if (!seleccionado.isChecked())
                     return;
+                listaElementos.clear();
                 switch (checkedId){
                     case R.id.plato:
+                        listaElementos.addAll(Arrays.asList(listaPlatos));
                         break;
                     case R.id.bebida:
+                        listaElementos.addAll(Arrays.asList(listaBebidas));
                         break;
                     case R.id.postre:
+                        listaElementos.addAll(Arrays.asList(listaPostre));
                         break;
                 }
+                adaptador.notifyDataSetChanged();
             }
         });
     }
@@ -83,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
         radioPostre = (RadioButton)findViewById(R.id.postre);
         textPedido = (TextView)findViewById(R.id.pedido);
         groupRadios = (RadioGroup)findViewById(R.id.group);
+
+        listaElementos = new ArrayList<ElementoMenu>();
+        adaptador = new ArrayAdapter<ElementoMenu>(this,R.layout.support_simple_spinner_dropdown_item,listaElementos);
+
+        listaComidas.setAdapter(adaptador);
     }
 
     class ElementoMenu {
@@ -161,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         listaPlatos[10]=new ElementoMenu(11,"Picada 1");
         listaPlatos[11]=new ElementoMenu(12,"Picada 2");
         listaPlatos[12]=new ElementoMenu(13,"Hamburguesa");
-        listaPlatos[12]=new ElementoMenu(14,"Calamares");
+        listaPlatos[13]=new ElementoMenu(14,"Calamares");
         // inicia lista de postres
         listaPostre= new ElementoMenu[15];
         listaPostre[0]=new ElementoMenu(1,"Helado");
