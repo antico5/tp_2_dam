@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textPedido;
     RadioGroup groupRadios;
 
+    boolean confirmado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
         setearWidgets();
         bindearRadios();
         bindearAgregar();
+        bindearReiniciar();
         reiniciar();
 
     }
 
     private void reiniciar(){
         elementoActual = null;
+        confirmado = false;
         pedidoActual = new Vector<ElementoMenu>();
         actualizarDetallePedido();
     }
@@ -109,13 +113,27 @@ public class MainActivity extends AppCompatActivity {
         botonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(elementoActual == null){
-
+                if(confirmado){
+                    Toast toast = Toast.makeText(getApplicationContext(), "El pedido ya ha sido confirmado.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if(elementoActual == null){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Debe seleccionar algo del menu.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else {
                     pedidoActual.add(elementoActual);
                     actualizarDetallePedido();
                 }
+            }
+        });
+    }
+
+    private void bindearReiniciar(){
+        botonReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reiniciar();
             }
         });
     }
@@ -133,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
         radioPostre = (RadioButton)findViewById(R.id.postre);
         textPedido = (TextView)findViewById(R.id.pedido);
         groupRadios = (RadioGroup)findViewById(R.id.group);
+
+        textPedido.setMovementMethod(new ScrollingMovementMethod());
 
         listaElementos = new ArrayList<ElementoMenu>();
         adaptador = new ArrayAdapter<ElementoMenu>(this,R.layout.support_simple_spinner_dropdown_item,listaElementos);
